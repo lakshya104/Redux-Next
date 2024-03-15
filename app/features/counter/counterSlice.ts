@@ -1,36 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../../store'
+import { reverseSring } from '@/app/helpers/functions'
 
 interface CounterState {
-  value: number
+  value: string
 }
 
 const initialState: CounterState = {
-  value: 0,
+  value: '',
 }
 
 export const counterSlice = createSlice({
-  name: 'counter',
+  name: 'string',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1
-    },
-    decrement: (state) => {
-      state.value -= 1
+    setStr: (state, action: PayloadAction<string>) => {
+      state.value = action.payload
     },
     reset:(state)=>{
-        state.value = 0
+        state.value = ''
     },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload
+    reverseStr: (state, action: PayloadAction<string>) => {
+      state.value = reverseSring(action.payload)
     },
   },
 })
 
-export const { increment, decrement, reset, incrementByAmount } = counterSlice.actions
+export const {setStr, reset, reverseStr } = counterSlice.actions
 
-// Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.counter.value
 
 export default counterSlice.reducer
